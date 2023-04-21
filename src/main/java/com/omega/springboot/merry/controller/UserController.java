@@ -1,18 +1,43 @@
 package com.omega.springboot.merry.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.omega.springboot.merry.entity.User;
+import com.omega.springboot.merry.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Optional;
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 
+    @Autowired
+    UserService userService;
+
     @GetMapping("/")
-    public String printHello(){
-        return "Hello World";
+    public List<User> getAllUsers(){
+        return userService.getAllUsers();
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<User>> getCustomerById(@PathVariable(value = "id") Long userId) {
+        return ResponseEntity.ok().body(userService.getUser(userId));
     }
 
-    @GetMapping("/workout")
-    public String printWorkout(){
-        return "Run 21k";
+    @PostMapping("/")
+    public User createUser(@RequestBody User customer) {
+        return userService.createUser(customer);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<User> updateCustomer(@RequestBody User customer) {
+        return ResponseEntity.ok().body(userService.updateUser(customer));
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<User> deleteCustomer(@PathVariable(value = "id") Long userId) {
+        userService.deleteUser(userId);
+        return ResponseEntity.ok().build();
     }
 }
