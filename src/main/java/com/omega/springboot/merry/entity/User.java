@@ -1,6 +1,8 @@
 package com.omega.springboot.merry.entity;
 
 
+import com.omega.springboot.merry.constants.SexCategoryEnum;
+
 import javax.persistence.*;
 
 @Entity
@@ -15,7 +17,9 @@ public class User {
     private String lastName;
     private String middleName;
     private String phoneNumber;
-    private String gender;
+
+    @Enumerated(EnumType.STRING)
+    private SexCategoryEnum sex;
     private String email;
     private int age;
 
@@ -23,14 +27,14 @@ public class User {
 
     }
 
-    public User(String firstName, String lastName, String email, String middleName, String phoneNumber, String gender, int age) {
+    public User(String firstName, String lastName, String email, String middleName, String phoneNumber, SexCategoryEnum sex, int age) {
         super();
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.middleName = middleName;
         this.phoneNumber = phoneNumber;
-        this.gender = gender;
+        this.sex = sex;
         this.age = age;
     }
 
@@ -74,12 +78,12 @@ public class User {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getGender() {
-        return gender;
+    public SexCategoryEnum getSex() {
+        return sex;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setSex(SexCategoryEnum sex) {
+        this.sex = sex;
     }
 
     public String getEmail() {
