@@ -1,7 +1,7 @@
 package com.omega.springboot.merry.controller;
 
-import com.omega.springboot.merry.entity.User;
 import com.omega.springboot.merry.service.UserService;
+import com.omega.springboot.merry.so.UserSO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,26 +17,27 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/")
-    public List<User> getAllUsers(){
+    public List<UserSO> getAllUsers() {
         return userService.getAllUsers();
     }
+
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<User>> getCustomerById(@PathVariable(value = "id") Long userId) {
+    public ResponseEntity<Optional<UserSO>> getCustomerById(@PathVariable(value = "id") Long userId) {
         return ResponseEntity.ok().body(userService.getUser(userId));
     }
 
     @PostMapping("/")
-    public User createUser(@RequestBody User customer) {
+    public UserSO createUser(@RequestBody UserSO customer) {
         return userService.createUser(customer);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<User> updateCustomer(@RequestBody User customer) {
+    public ResponseEntity<UserSO> updateCustomer(@RequestBody UserSO customer) {
         return ResponseEntity.ok().body(userService.updateUser(customer));
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<User> deleteCustomer(@PathVariable(value = "id") Long userId) {
+    public ResponseEntity<UserSO> deleteCustomer(@PathVariable(value = "id") Long userId) {
         userService.deleteUser(userId);
         return ResponseEntity.ok().build();
     }

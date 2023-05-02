@@ -1,14 +1,15 @@
 package com.omega.springboot.merry.service;
 
 import com.omega.springboot.merry.entity.User;
+import com.omega.springboot.merry.so.UserSO;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
-     List<User> getAllUsers();
-     Optional<User> getUser(long id);
-     User createUser(User user);
-     User updateUser(User user);
+     List<UserSO> getAllUsers();
+     Optional<UserSO> getUser(long id);
+     UserSO createUser(UserSO user);
+     UserSO updateUser(UserSO user);
      void deleteUser(long id);
 }
